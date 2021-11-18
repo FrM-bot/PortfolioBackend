@@ -1,0 +1,55 @@
+POST http://localhost:8080/proyects
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxMWZjOGVhYWZmZWZlMmZlMDM0Zjc5NCIsImlhdCI6MTYyOTYyNzE0MywiZXhwIjoxNjI5NzEzNTQzfQ.Zw-WKpWPJFJ2pxh104nS_s_ETIp7-E4cKgpnf6LmNio
+
+{
+    "title": "e-commerse 34",
+	"imgURL": "https://cdnb.artstation.com/p/assets/images/images/039/089/099/large/mirco-cabbia-sciamano240-beidou-2-3.jpg?1624918108",
+	"proyectURL": "https://www.artstation.com/artwork/0nQbKy",
+    "technologies": ["React", "Express-Node", "Fastify"]
+}
+###
+POST http://localhost:8080/proyects
+Content-Type: application/json
+
+{
+    "proyectURL": "https://www.artstation.com/artwork/oOGvJW",
+    "imgURL": "https://cdna.artstation.com/p/assets/images/images/022/391/524/large/arseniy-chebynkin-ocean-beachside.jpg?1575282994",
+    "title": "Proyect 1"
+}
+
+###
+POST http://localhost:8080/proyects
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxMWZjOGVhYWZmZWZlMmZlMDM0Zjc5NCIsImlhdCI6MTYyOTU5MzAxNCwiZXhwIjoxNjI5Njc5NDE0fQ.DKZEQVTS73mKH6MQa9Wln72VS_-JfXkwc8qC0YLcip8
+
+{
+    "title": "Proyect 2",
+    "imgURL": "https://cdna.artstation.com/p/assets/images/images/017/879/976/large/arseniy-chebynkin-nikki-room.jpg?1557700403",
+    "proyectURL": "https://www.artstation.com/artwork/8lZK06",
+    "technologies": ["React", "Express-Node"]
+}
+
+###
+POST http://localhost:8080/proyects
+Content-Type: application/json
+
+
+{
+    "title": "Proyect 2",
+    "proyectURL": "https://www.artstation.com/artwork/9kxLL",
+    "imgURL": "https://cdnb.artstation.com/p/assets/images/images/002/613/321/large/arseniy-chebynkin-lmrbg.jpg?1463653475",
+    "technologies": ["React", "Express-Node"]
+}
+
+###
+POST http://localhost:8080/proyects
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxMWZjOGVhYWZmZWZlMmZlMDM0Zjc5NCIsImlhdCI6MTYyOTU5MzAxNCwiZXhwIjoxNjI5Njc5NDE0fQ.DKZEQVTS73mKH6MQa9Wln72VS_-JfXkwc8qC0YLcip8
+
+{
+    "proyectURL": "https://www.artstation.com/artwork/YeLWlY",
+    "imgURL": "https://cdna.artstation.com/p/assets/images/images/027/622/708/large/mirco-cabbia-sciamano240-ayame-himuro-2-3.jpg?1592066238",
+    "title": "Proyect 4",
+    "technologies": ["React", "Express-Node"]
+}

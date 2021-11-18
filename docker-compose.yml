@@ -1,0 +1,10 @@
+version: "3.9"
+
+services:
+  server:
+    container_name: app-server
+    image: app-server
+    build:
+      context: .
+    ports:
+      - 8080:8080

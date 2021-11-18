@@ -1,0 +1,25 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../Portfolio_Frontend"
+		},
+		{
+			"path": "../../../Python/django/firstProyect"
+		},
+		{
+			"path": "../../nextJs/nextjs-portfolio"
+		},
+		{
+			"path": "../../../GraphQL/firstTest"
+		},
+		{
+			"path": "../../../vite/portfolio"
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "portfolio"
+	}
+}
