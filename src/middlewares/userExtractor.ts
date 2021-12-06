@@ -24,8 +24,8 @@ module.exports = (req: Request & IToken, res: Response, next: NextFunction) => {
     
 	try {
 		const decodeToken = jwt.verify(Token, process.env.JWT)
-		const { id } = decodeToken
-		req.userToken = id
+		const { uId } = decodeToken
+		req.userToken = uId
 
 	} catch (error) {
 		res.status(401).json({error: 'Token invalid'}).end()

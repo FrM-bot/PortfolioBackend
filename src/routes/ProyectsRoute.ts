@@ -46,9 +46,13 @@ RouterProyects.get('/getAll', async (req: Request, res: Response, next: NextFunc
 
 	}
 })
-
+interface IFile {
+	file: {
+		path: string
+	}
+}
 // save a proyect
-RouterProyects.post('/add', userExtractor, update, async (req: Request & IToken, res: Response, next: NextFunction) => {
+RouterProyects.post('/add', userExtractor, update, async (req: Request & IToken & IFile, res: Response, next: NextFunction) => {
 	const { body, userToken } = req
 	const { title, proyectURL, technologies } = body
 
@@ -62,6 +66,8 @@ RouterProyects.post('/add', userExtractor, update, async (req: Request & IToken,
 		}
 
 		const { public_id: publicId, secure_url: imgUrl } = await cloudinary.uploader.upload(req.file?.path)
+
+		await fs.unlink(req.file?.path)
 		
 		const date = new Date()
 		
@@ -83,8 +89,6 @@ RouterProyects.post('/add', userExtractor, update, async (req: Request & IToken,
 
 		await user.save()
 
-		await fs.unlink(req.file?.path)
-
 		res.json(proyectAdded).status(200).end()
 
 	} catch (error) {
@@ -95,7 +99,7 @@ RouterProyects.post('/add', userExtractor, update, async (req: Request & IToken,
 })
 
 // get one proyects
-RouterProyects.get('/p/:id', async (req: Request, res: Response, next: NextFunction) => {
+RouterProyects.get('/:id', async (req: Request, res: Response, next: NextFunction) => {
 	const { id } = req.params
 
 	try {
@@ -118,7 +122,7 @@ RouterProyects.get('/p/:id', async (req: Request, res: Response, next: NextFunct
 })
 
 // delete one proyect
-RouterProyects.delete('/p/:id', userExtractor, async (req: Request & IToken, res: Response, next: NextFunction) => {
+RouterProyects.delete('/:id', userExtractor, async (req: Request & IToken, res: Response, next: NextFunction) => {
 	const { params, userToken } = req
 	const { id } = params
 	console.log(id)
@@ -144,22 +148,53 @@ RouterProyects.delete('/p/:id', userExtractor, async (req: Request & IToken, res
 })
 
 // edit one proyect
-RouterProyects.put('/p/:id', userExtractor, update, async (req: Request, res: Response, next: NextFunction) => {
+RouterProyects.put('/:id', userExtractor, update, async (req: Request & IToken & IFile, res: Response, next: NextFunction) => {
 	const { id } = req.params
-	const { title, imgURL, proyectURL, technologies } = req.body
+	const { title, imageOld, proyectURL, technologies } = req.body
 
-	const proyect = {
-		title,
-		imgURL,
-		proyectURL,
-		technologies
-	}
-
+	
+	// console.log(req.file, {id})
+	// const proyect = {
+	// 	title,
+	// 	image: JSON.parse(imageOld),
+	// 	proyectURL,
+	// 	technologies
+	// }
+	// console.log(proyect)
+	let proyect = {}
 	try {
+		if (req.file) {
+			cloudinary.uploader.destroy(imageOld.publicId, function(error: any ,result: any ) {
+				console.log(result, error) })
+			const { public_id: publicId, secure_url: imgUrl } = await cloudinary.uploader.upload(req.file?.path)
+			await fs.unlink(req.file?.path)
+			proyect = {
+				title,
+				image: {
+					publicId,
+					imgUrl
+				},
+				proyectURL,
+				technologies
+			}
+		} else {
+			proyect = {
+				title,
+				image: JSON.parse(imageOld),
+				proyectURL,
+				technologies
+			}
+		}
+		console.log({proyect})
 		const proyectUpdated = await PROYECT.findOneAndUpdate({_id: id}, proyect, { new: true })
+
+		console.debug({proyectUpdated})
+
 		res.json(proyectUpdated).status(200).end()
+		
 
 	} catch (error) {
+		console.error(error)
 		next(error)
 	}
 })

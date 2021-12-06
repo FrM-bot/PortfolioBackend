@@ -21,19 +21,26 @@ interface IFormInput {
 	message?: string;
 }
 
-// save user
-UsersRoute.post('/SignIn', async (req: Request, res: Response, next: NextFunction) => {
+interface session {
+	session: {
+		user: string
+		password: string
+	}
+}
 
-	const message: IFormInput = req.body
+// save user
+UsersRoute.post('/signin', async (req: Request & session, res: Response, next: NextFunction) => {
+
+	const { mail, message }: IFormInput = req.body
 
 	try {
 
-		if (message.mail === process.env.MAIL && message.message.trim() !== '') {
+		if (mail === process.env.MAIL && message.trim() !== '') {
 
-			const passwordHash = await bcrypt.hash(message.message, 10)
+			const passwordHash = await bcrypt.hash(message, 10)
 
 			const Admin = new USER({
-				email: message.mail,
+				email: mail,
 				password: passwordHash
 			})
 
@@ -51,33 +58,41 @@ UsersRoute.post('/SignIn', async (req: Request, res: Response, next: NextFunctio
 	}
 })
 
-// get user
-UsersRoute.post('/LogIn', async (req: Request, res: Response) => {
 
-	const message: IFormInput = req.body
-	console.log('login')
+
+// get user
+UsersRoute.post('/login', async (req: Request & session, res: Response) => {
+	const { mail, message }: IFormInput = req.body
 	try {
-		const user = await USER.findOne({ email: message.mail })
+
+
+
+		const user = await USER.findOne({ email: mail })
 		console.log(message)
-		const passwordIs = user ? (await bcrypt.compare(message.message, user.password)) : ( false )
+		const passwordIs = user ? (await bcrypt.compare(message, user.password)) : ( false )
 
 		if (!( passwordIs && user )) {
 			return res.status(406)
 		}
 
+		console.log(req.session)
 		const dataForToken = {
-			id: user._id,
+			uId: user._id
 		}
 
-		const token = jwt.sign(dataForToken, process.env.JWT, {
-			expiresIn: '24h'
+		const minutes = 20
+
+		const token = await jwt.sign(dataForToken, process.env.JWT, {
+			expiresIn: 60 * minutes
 		})
 
-		console.log(token)
+		// console.log(token)
 
-		res.status(200).json({
-			token
-		})
+		// res.status(200).json({
+		// 	token
+		// })
+
+		res.status(200).send({token, tokenEx: minutes})
 
 	} catch (error) {
 
