@@ -4,7 +4,7 @@
   "description": "",
   "main": "dist/index.js",
   "scripts": {
-    "dev": "cross-env NODE_ENV=development nodemon --config nodemon.json tsc",
+    "dev": "cross-env NODE_ENV=development nodemon --config nodemon.json",
     "start": "cross-env NODE_ENV=production node ./dist/index.js",
     "test": "cross-env NODE_ENV=test PORT=8888 jest ./src/test_jest/proyect/",
     "tsc": "tsc",
