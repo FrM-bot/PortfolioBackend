@@ -34,7 +34,7 @@ import USER from '../models/User'
 RouterProyects.get('/', async (req: Request, res: Response, next: NextFunction) => {
 	try {
 		// const user = await USER.findOne({ email: process.env.MAIL })
-		const proyects: IProyect[] = await PROYECT.find({}).populate('userID', {
+		const proyects: IProyect[] | undefined = await PROYECT.find({}).populate('userID', {
 			_id: 0,
 			email: 0,
 			password: 0
@@ -42,7 +42,7 @@ RouterProyects.get('/', async (req: Request, res: Response, next: NextFunction) 
 		res.json(proyects).status(200).end()
 
 	} catch (error) {
-		next(error)
+		console.error(error)
 	}
 })
 interface IFile {
@@ -88,8 +88,7 @@ RouterProyects.post('/add', userExtractor, update, async (req: Request & IToken 
 		res.json(proyectAdded).status(200).end()
 
 	} catch (error) {
-		console.debug('Error in get proyect')
-		next(error)
+		console.error(error)
 
 	}
 })
@@ -111,9 +110,7 @@ RouterProyects.get('/:id', async (req: Request, res: Response, next: NextFunctio
 		res.json(proyect).status(200).end()
 
 	} catch (error) {
-		res.status(404).end()
-		next(error)
-
+		console.error(error)
 	}
 })
 
@@ -138,8 +135,6 @@ RouterProyects.delete('/delete/:id', userExtractor, async (req: Request & IToken
 
 	} catch (error) {
 		console.error(error)
-		next(error)
-
 	}
 })
 
@@ -182,7 +177,6 @@ RouterProyects.put('/edit/:id', userExtractor, update, async (req: Request & ITo
 
 	} catch (error) {
 		console.error(error)
-		next(error)
 	}
 })
 

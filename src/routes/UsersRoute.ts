@@ -16,15 +16,8 @@ interface IFormInput {
 	password: string;
 }
 
-interface session {
-	session: {
-		user: string
-		password: string
-	}
-}
-
 // save user
-UsersRoute.post('/signin', async (req: Request & session, res: Response, next: NextFunction) => {
+UsersRoute.post('/signin', async (req: Request, res: Response, next: NextFunction) => {
 
 	const { username, password }: IFormInput = req.body
 
@@ -47,16 +40,14 @@ UsersRoute.post('/signin', async (req: Request & session, res: Response, next: N
 		res.status(406).end()
 
 	} catch (error) {
-
 		next(error)
-
 	}
 })
 
 
 
 // get user
-UsersRoute.post('/login', async (req: Request & session, res: Response) => {
+UsersRoute.post('/login', async (req: Request, res: Response) => {
 	const { username, password }: IFormInput = req.body
 	try {
 		const user = await USER.findOne({ email: username })
@@ -67,7 +58,6 @@ UsersRoute.post('/login', async (req: Request & session, res: Response) => {
 			return res.status(406)
 		}
 
-		console.log(req.session)
 		const dataForToken = {
 			uId: user._id
 		}
@@ -81,9 +71,7 @@ UsersRoute.post('/login', async (req: Request & session, res: Response) => {
 		res.status(200).send({token})
 
 	} catch (error) {
-
 		console.error(error)
-
 	}
 
 })

@@ -44,7 +44,6 @@ UsersRoute.post('/login', (req, res) => __awaiter(void 0, void 0, void 0, functi
         if (!(passwordIs && user)) {
             return res.status(406);
         }
-        console.log(req.session);
         const dataForToken = {
             uId: user._id
         };

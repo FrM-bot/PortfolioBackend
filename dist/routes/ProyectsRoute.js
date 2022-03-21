@@ -35,7 +35,7 @@ RouterProyects.get('/', (req, res, next) => __awaiter(void 0, void 0, void 0, fu
         res.json(proyects).status(200).end();
     }
     catch (error) {
-        next(error);
+        console.error(error);
     }
 }));
 RouterProyects.post('/add', userExtractor_1.default, multer_1.default, (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
@@ -67,8 +67,7 @@ RouterProyects.post('/add', userExtractor_1.default, multer_1.default, (req, res
         res.json(proyectAdded).status(200).end();
     }
     catch (error) {
-        console.debug('Error in get proyect');
-        next(error);
+        console.error(error);
     }
 }));
 RouterProyects.get('/:id', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
@@ -84,8 +83,7 @@ RouterProyects.get('/:id', (req, res, next) => __awaiter(void 0, void 0, void 0,
         res.json(proyect).status(200).end();
     }
     catch (error) {
-        res.status(404).end();
-        next(error);
+        console.error(error);
     }
 }));
 RouterProyects.delete('/delete/:id', userExtractor_1.default, (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
@@ -102,7 +100,6 @@ RouterProyects.delete('/delete/:id', userExtractor_1.default, (req, res, next) =
     }
     catch (error) {
         console.error(error);
-        next(error);
     }
 }));
 RouterProyects.put('/edit/:id', userExtractor_1.default, multer_1.default, (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
@@ -142,7 +139,6 @@ RouterProyects.put('/edit/:id', userExtractor_1.default, multer_1.default, (req,
     }
     catch (error) {
         console.error(error);
-        next(error);
     }
 }));
 exports.default = RouterProyects;
