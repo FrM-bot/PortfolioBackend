@@ -21,10 +21,11 @@ async function startApolloServer(typeDefs: DocumentNode, resolvers: { Query: { a
 		plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
 	})
 	await server.start()
-	
+	const port = process.env.PORT_GRAPHQL || 4000
 	server.applyMiddleware({ app })
-	httpServer.listen({ port: 4000 })
-	console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`)
+	httpServer.listen({ port })
+	// console.log({ })
+	console.log(`🚀 Server ready at http://localhost:${port}${server.graphqlPath}`)
 }
 
 startApolloServer(typeDefs, resolvers)

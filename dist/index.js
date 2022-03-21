@@ -13,6 +13,7 @@ const cors_1 = __importDefault(require("cors"));
 const morgan_1 = __importDefault(require("morgan"));
 const compression_1 = __importDefault(require("compression"));
 const helmet_1 = __importDefault(require("helmet"));
+const { NODE_ENV } = process.env;
 app.use(cors_1.default());
 app.use(express_1.default.json());
 app.use(compression_1.default());

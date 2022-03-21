@@ -18,6 +18,7 @@ import helmet from 'helmet'
 import type { Request, Response } from 'express'
 
 // use
+const { NODE_ENV } = process.env
 
 app.use(cors())
 
