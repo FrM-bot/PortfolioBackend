@@ -1,8 +1,0 @@
-PUT http://localhost:8080/proyects/6115bd796cc9ae377cffb98c
-Content-Type: application/json
-
-{
-    "title": "Hola act",
-    "imgURL": "Hola act",
-    "proyectURL": "hola act"
-}
