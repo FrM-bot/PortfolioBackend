@@ -1,9 +1,0 @@
-
-GET  http://localhost:8080/users/LogIn
-Content-Type: application/json
-
-{
-    "name": "Log",
-    "mail": "damianmaciel0@gmail.com",
-    "message": "message"
-}
