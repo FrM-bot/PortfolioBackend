@@ -11,11 +11,11 @@ import { IToken } from 'src/interfaces/IToken'
 import jwt from 'jsonwebtoken'
 
 export default (req: Request & IToken, res: Response, next: NextFunction) => {
-	const authorization = req.get('authorization')
+	const auth = req.get('authorization')
 	let Token = null 
 
-	if (authorization && authorization.toLowerCase().startsWith('bearer')) {
-		Token = authorization.split(' ')[1]
+	if (auth && auth.toLowerCase().startsWith('bearer')) {
+		Token = auth.split(' ')[1]
 	}
 
 	if (Token === null) {

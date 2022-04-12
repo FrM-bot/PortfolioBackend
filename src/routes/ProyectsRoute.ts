@@ -34,7 +34,7 @@ import USER from '../models/User'
 RouterProyects.get('/', async (req: Request, res: Response, next: NextFunction) => {
 	try {
 		// const user = await USER.findOne({ email: process.env.MAIL })
-		const proyects: IProyect[] | undefined = await PROYECT.find({}).populate('userID', {
+		const proyects: IProyect[] = await PROYECT.find({}).populate('userID', {
 			_id: 0,
 			email: 0,
 			password: 0
@@ -125,10 +125,8 @@ RouterProyects.delete('/delete/:id', userExtractor, async (req: Request & IToken
 		
 		const user: IUser = await USER.findOne({ _id: userToken })
 
-		// console.log(user.proyectsIDs)
-
 		user.proyectsIDs = user.proyectsIDs.filter((idProyect: mongoose.ObjectId) => idProyect.toString() !== id)
-		// console.log(user.proyectsIDs)
+
 		user.save()
 		console.log(user.proyectsIDs)
 		res.status(204).end()

@@ -57,19 +57,6 @@ app.use(notFound)
 
 const PORT = process.env.PORT || 8080
 
-// import os from 'os'
-// const ifaces = os.networkInterfaces()
-// let IP: string
-// Object.keys(ifaces).forEach((ifname) => {
-// 	return ifaces[ifname].forEach((element: { family: string; internal: boolean; address: string }) => {
-// 		if (element.family === 'IPv4' && element.internal === false) {
-// 			IP = element.address
-// 		}
-// 	})
-// })
-
-import './graphQL/apolloServer'
-
 const server = app.listen(PORT, () => {
 	console.debug(`Server: ${process.env.NODE_ENV}`)
 	console.log(`🚀 Server ready at http://localhost:${PORT}`)

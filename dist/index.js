@@ -31,7 +31,6 @@ app.use('/users', UsersRoute_1.default);
 app.use(errorHandlers_1.default);
 app.use(notFound_1.default);
 const PORT = process.env.PORT || 8080;
-require("./graphQL/apolloServer");
 const server = app.listen(PORT, () => {
     console.debug(`Server: ${process.env.NODE_ENV}`);
     console.log(`🚀 Server ready at http://localhost:${PORT}`);
