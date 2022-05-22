@@ -43,9 +43,6 @@ const context = async ({ req }) => {
 
 async function startApolloServer() {
 	const app = express()
-	const cors = {
-		origin: [process.env.ALLOW_ORIGIN]
-	}
 	const httpServer = http.createServer(app)
 	const server = new ApolloServer({
 		typeDefs,
@@ -59,7 +56,7 @@ async function startApolloServer() {
 
 	const port = process.env.PORT || 4000
 	
-	server.applyMiddleware({ app, cors, csrfPrevention: true })
+	server.applyMiddleware({ app, csrfPrevention: true })
 	httpServer.listen({ port })
 	console.log(`🚀 Server ready at http://localhost:${port}${server.graphqlPath}`)
 }
